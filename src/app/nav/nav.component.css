@@ -1,0 +1,85 @@
+/*body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: blue;
+  padding: 10px 20px;
+  color: white;
+}
+
+.logo img {
+  width: 40px; /* Adjust the width of the logo as needed */
+
+
+/*.admin {
+  font-size: 18px;
+}
+.sales-info {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  padding: 10px;
+}
+
+.item {
+  color: black;
+}*/
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  padding: 10px 20px;
+  color: white;
+  transition: background-color 0s; /* Add transition effect to background-color */
+  height: 20px;
+}
+
+.logo img {
+  width: 30px;
+  height: 30px 
+  /* Adjust the width of the logo as needed */
+}
+
+.sales-stock {
+  display: flex;
+  gap: 25px; /* Add gap between "Sales" and "Stock" */
+  font-size: 20px;
+}
+
+.sales-info {
+  display: flex;
+  flex-direction: row; 
+  gap: 70px; /* Add gap between elements */
+  margin-left: 50px;
+}
+
+.item-sales {
+  color: white;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s; /* Add transition effect to background-color */
+  margin-right: 20px;
+}
+.item-sales:hover{
+  background-color: white;
+  color:black;
+  
+}
+/* Define the 'hovered' class for changing background color */
+.hovered {
+  background-color: black /* Change background color on hover */
+}
+/* Method for handling hover events can be added in the .ts file if needed */
+

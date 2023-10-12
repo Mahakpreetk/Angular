@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="section">
+      <label for="name">Customer:</label><br />
+      <input type="text" id="name" name="name" />
+    </div>
+  
+    <!--<div class="total section">
+        <label for="total">Total:</label>
+        <span class="amount">{{ total | currency }}</span>
+      </div>-->
+      <div class="total section">
+        <label for="total">Total:</label>
+        <span class="amount">{{ total | currency }}</span>
+      </div>
+      
+      <div class="discount section">
+        <label for="discount">Discount:</label><br />
+        <input type="text" id="discount" name="discount" [(ngModel)]="discount" (change)="updateTotal()" />
+      </div>
+      
+      <div class="tax section">
+        <label for="tax">Tax:</label><br />
+        <input type="text" id="tax" name="tax" [(ngModel)]="tax" (change)="updateTotal()" />
+      </div>
+      
+      <div class="net-total section">
+        Net Total: {{ netTotal | currency }}
+      </div>
+      
+      <div class="calculated-amount section">
+        <label for="calculated-amount"></label>
+        <input type="text" id="calculated-amount" name="calculated-amount" [(ngModel)]="calculatedAmount" readonly />
+      </div>
+  
+    <div class="payment-mode section">
+      <label for="payment-mode">Payment Mode:</label><br />
+      <select id="payment-mode" name="payment-mode">
+        <option value="cash">Cash</option>
+        <option value="online">Online payment</option>
+        <option value="card">Card</option>
+    </select>
+    </div>
+  
+    <div class="paid section">
+      <label for="paid">Paid:</label><br />
+      <input type="text" id="paid" name="paid" />
+    </div>
+  
+    <div class="complete-sale">
+        Complete Sale
+    </div>
+</div>
+

@@ -1,0 +1,75 @@
+<div class="modal-overlay">
+    <div class="custom-modal">
+        <div class="modal-header">
+            <h4 class="modal-title">{{ header }}</h4>
+            <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="activeModal.dismiss('Cross click')"
+            >
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="item"><h3>Item:</h3></label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="item"
+                        [(ngModel)]="editedPolicyItem.item"
+                        name="item"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="price"><h3>Price:</h3></label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="price"
+                        [(ngModel)]="editedPolicyItem.price"
+                        name="price"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="quantity"><h3>Quantity:</h3></label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="quantity"
+                        [(ngModel)]="editedPolicyItem.quantity"
+                        name="quantity"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="discount"><h3>Discount:</h3></label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="discount"
+                        [(ngModel)]="editedPolicyItem.discount"
+                        name="discount"
+                    />
+                </div>
+                <div class="buttons">
+                    <button
+                        type="button"
+                        class="btn btn-secondary cancel-button"
+                        (click)="activeModal.dismiss('Cancel')"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-primary save-button"
+                        (click)="onSaveChangesClick()"
+                    >
+                        Save changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

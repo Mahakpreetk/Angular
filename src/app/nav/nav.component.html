@@ -1,0 +1,16 @@
+<div class="navbar">
+  <div class="logo">
+    <img src="./assets/images/medical-logo.jpg" alt="Logo" />
+    
+  </div>
+  <div class="sales-stock">
+    <div class="item-sales" (mouseover)="onMouseOver('home')" (mouseout)="onMouseOut('home')">Home</div>
+    <div class="item-sales" (mouseover)="onMouseOver('sales')" (mouseout)="onMouseOut('sales')">Sales</div>
+    <div class="item-sales" (mouseover)="onMouseOver('stock')" (mouseout)="onMouseOut('stock')">Stock</div>
+  </div>
+</div>
+<div class="sales-info">
+  
+  <div class="item" (mouseover)="onMouseOver('salesInfo')" (mouseout)="onMouseOut('salesInfo')">Date:</div>
+  <div class="item" (mouseover)="onMouseOver('salesInfo')" (mouseout)="onMouseOut('salesInfo')">Invoice:</div>
+</div>

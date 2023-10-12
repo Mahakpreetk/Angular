@@ -1,0 +1,138 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0; /* Remove default margin */
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 20%; /* Set container width to 30% */
+    position: absolute;
+    top: 60px; /* Adjust the top margin */
+    right: 10px; /* Adjust the right margin */
+    padding: 20px;
+    box-sizing: border-box;
+    height: calc(
+      100% - 50px
+    ); /* Make it full height minus top and bottom padding */
+    border-left: 0.5px solid rgb(177, 173, 173);
+  }
+  
+  .section {
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center; /* Align items horizontally */
+  }
+  
+  .section label {
+    margin-right: 10px; /* Add some margin between label and input */
+  }
+  
+  .total {
+    background-color: rgb(183, 181, 181);
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 10px; /* Add margin to separate from the next element */
+  }
+  
+  .total label {
+    margin-right: 100px; /* Add margin between label and amount */
+  }
+  
+  .tax {
+    background-color: white;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px; /* Add margin to separate from the next element */
+  }
+  
+  .net-total {
+    background-color: darkgrey;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 10px; /* Add margin to separate from the next element */
+  }
+  
+  .blank-bar {
+    border: 1px solid black;
+    width: 100%;
+    height: 10px;
+    margin-bottom: 10px; /* Add margin to separate from the next element */
+  }
+  
+  .payment-mode {
+    width: 100%;
+    margin-bottom: 10px; /* Add margin to separate from the next element */
+  }
+  /* ... Other styles remain unchanged ... */
+  
+  .payment-mode select {
+    width: calc(100% - 20px); /* Adjust the width */
+    padding: 10px;
+  }
+  
+  /* ... Other styles remain unchanged ... */
+  
+  .paid {
+    width: 100%;
+    margin-bottom: 10px; /* Add margin to separate from the next element */
+  }
+  /* ... Other styles remain unchanged ... */
+  
+  .paid input {
+    width: calc(100% - 20px); /* Adjust the width */
+    padding: 10px;
+  }
+  
+  /* ... Other styles remain unchanged ... */
+  
+  .complete-sale {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: block; /* Change display property to block */
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 auto;
+  }
+  .discount {
+    background-color: rgb(233, 231, 231); /* Add light grey background color */
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 10px; /* Add margin to separate from the next element */
+  }
+  
+  .discount label {
+    margin-right: 10px; /* Add some margin between label and input */
+  }
+  .tax {
+    background-color: rgb(233, 231, 231); /* Add light grey background color */
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 10px; /* Add margin to separate from the next element */
+  }
+  
+  .tax label {
+    margin-right: 10px; /* Add some margin between label and input */
+  }
+  /* ... Other styles remain unchanged ... */
+  
+  .calculated-amount {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .calculated-amount input {
+    width: 100%; /* Adjust the width as needed */
+    padding: 10px;
+    height: 1cm;
+  }
+
+  

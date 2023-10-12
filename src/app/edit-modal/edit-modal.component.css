@@ -1,0 +1,134 @@
+/* Styles for the modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  /* Styles for the custom modal container */
+  .custom-modal {
+    background-image: linear-gradient(to bottom, #bbbbe8, #8f94fb);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.2);
+    width: 40%;
+    text-align: center;
+    z-index: 1000;
+  }
+  
+  /* Style for the modal header */
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+  }
+  
+  /* Style for the close button (X icon) */
+  .close {
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  /* Style for the modal body */
+  .modal-body {
+    /* Add your custom styles for the form and form controls here */
+  }
+  
+  /* Style for form groups */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  /* Style for labels */
+  .form-group label {
+    font-weight: bold;
+  }
+  
+  /* Style for text input fields */
+  .form-group input[type="text"],
+  .form-group input[type="number"] {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  /* Style for select dropdowns */
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  /* Style for date-picker container */
+  .form-group .date-picker-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  /* Style for date-picker input */
+  .form-group .date-picker input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Style for date-picker icon (assuming you have a FontAwesome icon) */
+  .form-group .date-picker .date-picker-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  /* Style for the buttons */
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* Style for the Cancel button */
+  .cancel-button {
+    background-color: #1d2479;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Style for the Save button */
+  .save-button {
+    background-color: #267011;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
