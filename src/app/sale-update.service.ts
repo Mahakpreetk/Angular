@@ -5,9 +5,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SaleUpdateService {
-  private apiUrl = 'https://localhost:7228/api/UpdateSale';
+  private apiBaseUrl = 'https://localhost:7228/api/UpdateSale';
   constructor(private http:HttpClient) { }
-  updateSale(saleId: number, updatedSale: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${saleId}`, updatedSale,{ responseType: 'text' });
+  updateSale( updatedSale: any): Observable<any> {
+    //return this.http.put(`${this.apiUrl}/${saleId}`, updatedSale,{ responseType: 'text' });
+    //const apiUrl = `${this.apiBaseUrl}/api/UpdateSale/${saleId}`;
+    return this.http.put(`${this.apiBaseUrl}/${updatedSale.saleId}`,updatedSale);
 }
 }

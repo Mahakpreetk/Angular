@@ -1,4 +1,4 @@
-<div class="navbar">
+<!--<div class="navbar">
   <div class="logo">
     <img src="./assets/images/medical-logo.jpg" alt="Logo" />
     
@@ -13,4 +13,58 @@
   
   <div class="item" (mouseover)="onMouseOver('salesInfo')" (mouseout)="onMouseOut('salesInfo')">Date:</div>
   <div class="item" (mouseover)="onMouseOver('salesInfo')" (mouseout)="onMouseOut('salesInfo')">Invoice:</div>
-</div>
+</div>-->
+<nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+  <a class="navbar-brand" href="#">
+    <img
+      src="./assets/images/medical-logo.jpg"
+      alt="Logo"
+      width="50"
+      height="50"
+    />
+  </a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          (mouseover)="onMouseOver('home')"
+          (mouseout)="onMouseOut('home')"
+          href="#"
+          >Home</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          (mouseover)="onMouseOver('sales')"
+          (mouseout)="onMouseOut('sales')"
+          href="#"
+          >Sales</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          (mouseover)="onMouseOver('stock')"
+          (mouseout)="onMouseOut('stock')"
+          href="#"
+          >Report</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
+ 
+ 

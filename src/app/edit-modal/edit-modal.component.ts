@@ -33,7 +33,7 @@ export class EditModalComponent {
   @Input() editedPolicyItem: any;
 
   @Output() saveChangesClicked = new EventEmitter<any>();
-  SaleUpdateService: any;
+ 
 
  
 
@@ -46,22 +46,17 @@ constructor(public activeModal: NgbActiveModal,private saleUpdate: SaleUpdateSer
  
 
 onSaveChangesClick() {
-
-  // Emit the event to notify the parent component
-
-  this.saveChangesClicked.emit(this.editedPolicyItem);
-  this.SaleUpdateService.updateSale(this.editedPolicyItem.saleId, this.editedPolicyItem).subscribe(
-    (response: any) => {
-      console.log('Sale item updated successfully', response);
-      // Optionally, close the modal or update the UI
-    },
-    (error: any) => {
-      console.error('Error updating sale', error);
-      // Handle errors as needed
-    }
-  );
-  
-
+  this.saleUpdate.updateSale( this.editedPolicyItem)
+    .subscribe(
+      (response: any) => {
+        console.log('Sale item updated successfully', response);
+        // Optionally, close the modal or update the UI
+      },
+      (error: any) => {
+        console.error('Error updating sale', error);
+        // Handle errors as needed
+      }
+    );
 }
 
 showModal = false;

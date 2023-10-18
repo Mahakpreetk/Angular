@@ -116,13 +116,16 @@ export class MainComponent implements OnInit{
     return this.calculateSubtotal() + this.calculateTax();
   }*/
 
-  import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-  import { NewService } from '../services/new.service';
-  import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-  import { EditModalComponent } from '../edit-modal/edit-modal.component';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { NewService } from '../services/new.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EditModalComponent } from '../edit-modal/edit-modal.component';
 import { SaleService } from '../sale.service';
 import { SaleUpdateService } from '../sale-update.service';
+//import { ToastrService } from 'ngx-toastr/public_api';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { ToastrService } from 'ngx-toastr/public_api';
+import { NgForm } from '@angular/forms';
   
   
   @Component({
@@ -131,11 +134,21 @@ import { ChangeDetectionStrategy } from '@angular/core';
     styleUrls: ['./main.component.css'],
     changeDetection: ChangeDetectionStrategy.Default
   })
-  export class MainComponent implements OnInit  { //implements OnInit
+  export class MainComponent implements OnInit  { 
+    
     items: any[] = [];
+    
     searchText: string = '';
     isAddingItem: boolean = false;
     total: number = 0;
+    nextId: number = 0;
+    isEditing: boolean = false;
+    editingItem: any;
+    editingItemCopy: any;
+    taxRate: number = 0.08;
+    customerName: string = '';
+  showReceipt: boolean = false;
+
   
     constructor(private changeDetectorRef: ChangeDetectorRef, private modalService: NgbModal,private pharmaService: NewService,private saleService: SaleService,private saleUpdate: SaleUpdateService) { }
   
@@ -147,7 +160,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
       this.pharmaService.Get().subscribe(
         (data) => {
           this.items = data;
-          this.calculateTotal();
+          this.calculateSubtotal();
         },
         (error) => {
           console.error('Error fetching sales data: ', error);
@@ -158,9 +171,41 @@ import { ChangeDetectionStrategy } from '@angular/core';
     // Function to add a new item
     addItem() {
       this.isAddingItem = true;
-      this.calculateTotal();
+      this.calculateSubtotal();
+     
     }
-  
+    editSale(saleId: number){
+      this.editingItem = this.items.find((item) => item.saleId === saleId);
+      this.editingItemCopy={ ...this.editingItem};
+      this.isEditing = true;
+    }
+    updateItem(form: NgForm) {
+      
+      if (form.valid) {
+        this.editingItem.itemName = this.editingItemCopy.itemName;
+    this.editingItem.salePrice = this.editingItemCopy.salePrice;
+    this.editingItem.saleQuantity = this.editingItemCopy.saleQuantity;
+    this.editingItem.discount = this.editingItemCopy.discount;
+        
+        this.saleUpdate.updateSale(this.editingItem).subscribe(
+          (response) => {
+            console.log('Sale updated successfully', response);
+            
+            this.isEditing = false; // Exit editing mode
+          },
+          (error) => {
+            console.error('Error updating sale', error);
+            
+          }
+        );
+      }
+      this.isEditing = false;
+    }
+    cancelEditItem() {
+      // Reset the selected item and exit editing mode
+      
+      this.isEditing = false;
+    }
     // Function to save the new item
     /*saveItem(newItemForm: any) {
       if (newItemForm.valid) {
@@ -176,15 +221,17 @@ import { ChangeDetectionStrategy } from '@angular/core';
         this.calculateTotal();
       }
     }*/
-    openEditModal(item: any) {
+    /*openEditModal(saleId: number) {
       const modalRef = this.modalService.open(EditModalComponent, {
         size: 'lg',
         backdrop: 'static',
       });
     
-      modalRef.componentInstance.header = 'Add New Sale';
+      modalRef.componentInstance.header = 'Update Sale';
       //modalRef.componentInstance.saleId = saleId;
-      modalRef.componentInstance.editedPolicyItem = { /* initialize data as needed */ };
+      modalRef.componentInstance.editedPolicyItem = {
+      
+         };
       
       modalRef.result.then(
         (result) => {
@@ -204,14 +251,15 @@ import { ChangeDetectionStrategy } from '@angular/core';
           }
         }
       );
-    }
-    
+    }*/
+   
     saveSaleItem(item: any) {
-      // You can add the logic to save the sale item to your list or make an API request
+      
       console.log('Sale item saved: ', item);
-      // For example, add it to your 'items' array
+      
       this.items.push(item);
-      this.calculateTotal();
+      this.fetchData();
+      this.calculateSubtotal();
     }
 
     saveItem(newItemForm: any) {
@@ -227,12 +275,13 @@ import { ChangeDetectionStrategy } from '@angular/core';
           (response) => {
             console.log('Sale added successfully', response);
             this.items.push(saleItem);
-            // Optionally, reset the form or perform other actions
+            this.fetchData();
+            // reset the form 
             this.cancelAddItem();
           },
           (error) => {
             console.error('Error adding sale', error);
-            // Handle errors as needed
+          
           }
         );
       }
@@ -243,7 +292,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
     // Function to cancel adding a new item
     cancelAddItem() {
       this.isAddingItem = false;
-      this.calculateTotal();
+      this.calculateSubtotal();
     }
     cancelNewSaleForm(){
       this.isAddingItem = false;
@@ -254,8 +303,11 @@ import { ChangeDetectionStrategy } from '@angular/core';
         () => {
           // Remove the deleted item from the local array to update the view
           this.items = this.items.filter((item) => item.saleId !== saleId);
-          this.calculateTotal();
-          this.changeDetectorRef.detectChanges();
+          this.calculateSubtotal();
+          this.fetchData();
+          alert('Sale deleted successfully');
+            
+          //this.changeDetectorRef.detectChanges();
         },
         (error) => {
           console.error('Error deleting sale: ', error);
@@ -265,22 +317,56 @@ import { ChangeDetectionStrategy } from '@angular/core';
   
     // Function to search items
     searchItems() {
-      // Implement search logic here based on your requirements
+      this.pharmaService.searchSales(this.searchText).subscribe(
+        (data: any[]) => {
+          this.items = data; // Update your items with the search results
+          this.calculateSubtotal(); // Recalculate totals
+        },
+        (error: any) => {
+          console.error('Error searching sales: ', error);
+        }
+      );
     }
   
     // Reset search and show all items
     resetSearch() {
       this.searchText = '';
+      this.fetchData();
       // Reload original data here or implement a way to reset to the original data
     }
   
-    calculateTotal(): number {
-      let total = 0;
+    calculateSubtotal(): number {
+      let subtotal = 0;
       for (const item of this.items) {
-        total += item.salePrice * item.saleQuantity - item.discount;
+        subtotal += item.salePrice * item.saleQuantity - item.discount;
       }
-      this.total = total; // Update total in the component
-      return total;
+      return subtotal;
+    }
+  
+    calculateTax(): number {
+      return this.calculateSubtotal() * this.taxRate;
+    }
+  
+    calculateTotalIncludingTax(): number {
+      return this.calculateSubtotal() + this.calculateTax();
+    }
+    generateReceipt() {
+      if (this.customerName) {
+        // Assuming you have a receipt object, you can populate it with data.
+        const receipt = {
+          customerName: this.customerName,
+          items: this.items, // Your list of sale items
+          subtotal: this.calculateSubtotal(),
+          tax: this.calculateTax(),
+          total: this.calculateTotalIncludingTax(),
+        };
+    
+        // Now, you can display the receipt or take any other actions.
+        console.log('Generated Receipt:', receipt);
+        this.showReceipt = true;
+      } else {
+        alert('Please enter the customer name before completing the sale.');
+      }
     }
    
   }

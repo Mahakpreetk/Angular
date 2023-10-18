@@ -29,7 +29,8 @@
 .item {
   color: black;
 }*/
-body {
+
+/*body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
@@ -42,26 +43,26 @@ body {
   padding: 10px 20px;
   color: white;
   transition: background-color 0s; /* Add transition effect to background-color */
-  height: 20px;
+ /* height: 20px;
 }
 
 .logo img {
   width: 30px;
   height: 30px 
   /* Adjust the width of the logo as needed */
-}
+/*}
 
 .sales-stock {
   display: flex;
   gap: 25px; /* Add gap between "Sales" and "Stock" */
-  font-size: 20px;
+  /*font-size: 20px;
 }
 
 .sales-info {
   display: flex;
   flex-direction: row; 
   gap: 70px; /* Add gap between elements */
-  margin-left: 50px;
+  /*margin-left: 50px;
 }
 
 .item-sales {
@@ -70,7 +71,7 @@ body {
   padding: 5px 10px;
   border-radius: 5px;
   transition: background-color 0.3s; /* Add transition effect to background-color */
-  margin-right: 20px;
+  /*margin-right: 20px;
 }
 .item-sales:hover{
   background-color: white;
@@ -78,8 +79,38 @@ body {
   
 }
 /* Define the 'hovered' class for changing background color */
-.hovered {
+/*.hovered {
   background-color: black /* Change background color on hover */
-}
+/*}
 /* Method for handling hover events can be added in the .ts file if needed */
-
+.custom-navbar {
+  background-color: #fff; /* White background */
+  border-bottom: 1px solid #eee; /* Light gray border */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+ 
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+ 
+.custom-navbar .navbar-toggler-icon {
+  background-color: #555; /* Dark gray for the menu icon */
+  transition: background-color 0.3s;
+}
+ 
+.custom-navbar .navbar-toggler:hover {
+  background-color: #333; /* Slightly darker gray on hover */
+}
+ 
+.custom-navbar .navbar-nav .nav-item .nav-link {
+  color: #555; /* Dark gray text color */
+  font-weight: bold;
+  transition: color 0.3s;
+  border-radius: 0; /* No border radius */
+  padding: 10px 15px;
+}
+ 
+.custom-navbar .navbar-nav .nav-item .nav-link:hover {
+  color: #007bff; /* Accent color text on hover */
+}
+.navbar{
+  background-color: lightblue;
+}

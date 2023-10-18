@@ -77,12 +77,71 @@
 <app-sidebar [total]="calculateTotal()"></app-sidebar>-->
 
 <div class="component">
-  <div class="search-bar">
-    <input type="text" placeholder="Search" [(ngModel)]="searchText" />
-    <button (click)="searchItems()">Search</button>
-    <button (click)="resetSearch()">Reset</button>
+  <div class="receipt" *ngIf="showReceipt">
+    <h2>Receipt</h2>
+    <div><strong>Customer Name:</strong> {{ customerName }}</div>
+    <div *ngFor="let item of items">
+      <div class="receipt-item">
+        <div><strong>Item:</strong> {{ item.itemName }}</div>
+        <div><strong>Price:</strong> {{ item.salePrice | currency:'INR' }}</div>
+        <div><strong>Quantity:</strong> {{ item.saleQuantity }}</div>
+        <div>
+          <strong>Total:</strong>
+          {{ (item.salePrice * item.saleQuantity - item.discount) | currency:'INR' }}
+        </div>
+      </div>
+    </div>
+    <div class="generate-receipt-total">
+      <div><strong>Subtotal:</strong> {{ calculateSubtotal() | currency:'INR' }}</div>
+      <div><strong>Tax ({{ taxRate * 100 }}%):</strong> {{ calculateTax() | currency:'INR' }}</div>
+      <div><strong>Total:</strong> {{ calculateTotalIncludingTax() | currency:'INR' }}</div>
+    </div>
   </div>
-
+  <div *ngIf="isAddingItem" class="add-item-form">
+    <form #newItemForm="ngForm" (ngSubmit)="saveItem(newItemForm)">
+      <div class="form-row">
+        <!-- Item and Price Fields -->
+        <div class="form-group">
+          <label for="item">Item:</label>
+          <input type="text" id="item" name="item" ngModel required />
+        </div>
+  
+        <div class="form-group">
+          <label for="price">Price:</label>
+          <input type="number" id="price" name="price" ngModel required />
+        </div>
+      
+  
+      
+        <!-- Quantity and Discount Fields -->
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input type="number" id="quantity" name="quantity" ngModel required />
+        </div>
+      </div>
+  
+        <div class="form-group">
+          <label for="discount">Discount:</label>
+          <input type="number" id="discount" name="discount" ngModel required />
+        </div>
+        <div class="button-container">
+      <button type="submit">Save</button>
+      <button type="button" (click)="cancelAddItem()">Cancel</button>
+        </div>
+    </form>
+  </div>
+  <div class="New-sale-search">
+    <button class="btn new-sale-button " (click)="addItem()">New Sale</button>
+    <div class="search-bar">
+      <input type="text" placeholder="Search" [(ngModel)]="searchText" />
+      <button class="search" (click)="searchItems()">Search</button>
+      <button class="reset" (click)="resetSearch()">Reset</button>
+    
+    </div>
+  </div>
+  
+  
+  
   <table>
     <thead>
       <tr>
@@ -98,48 +157,69 @@
     <tbody>
       <tr *ngFor="let item of items">
         <td>{{ item.saleId }}</td>
+        
         <td>{{ item.itemName }}</td>
-        <td>{{ item.salePrice | currency }}</td>
+        <td>{{ item.salePrice | currency:'INR' }}</td>
         <td>{{ item.saleQuantity }}</td>
-        <td>{{ item.discount | currency }}</td>
-        <td>{{ (item.salePrice * item.saleQuantity - item.discount) | currency }}</td>
-        <td> <button type="button" class="btn btn-outline-danger" (click)="deleteItem(item.saleId)">Delete</button><button type="button" class="btn btn-outline-warning" (click)="openEditModal(item.saleId)">Edit</button></td>
+        <td>{{ item.discount | currency:'INR' }}</td>
+        <td>{{ (item.salePrice * item.saleQuantity - item.discount) | currency:'INR' }}</td>
+        <td> <button type="button" class="btn btn-outline-danger" (click)="deleteItem(item.saleId)">Delete</button>
+          <button type="button" class="btn btn-outline-warning" (click)="editSale(item.saleId)">Edit</button>
+          <!--<button (click)="editSale(item)">Edit</button>-->
+        </td>
       </tr>
     </tbody>
   </table>
-
-  <div class="btn"><button class="new-sale-button" (click)="addItem()">New Sale</button>
-    <button class="cancel-button" (click)="cancelNewSaleForm()">Cancel</button></div>
-    
-  <div *ngIf="isAddingItem" class="add-item-form">
-    <form #newItemForm="ngForm" (ngSubmit)="saveItem(newItemForm)">
-      <div class="form-row">
+  <div *ngIf="isEditing" class="edit-item-form">
+    <form #editItemForm="ngForm" (ngSubmit)="updateItem(editItemForm)">
+      
         <!-- Item and Price Fields -->
-        <div class="form-group">
+        <div class="edit-form-group">
           <label for="item">Item:</label>
-          <input type="text" id="item" name="item" ngModel required />
+          <input type="text" id="itemName" name="itemName" [(ngModel)]="editingItemCopy.itemName" required />
         </div>
   
-        <div class="form-group">
+        <div class="edit-form-group">
           <label for="price">Price:</label>
-          <input type="number" id="price" name="price" ngModel required />
+          <input type="number" id="salePrice" name="salePrice" [(ngModel)]="editingItemCopy.salePrice" required />
         </div>
-      </div>
+      
   
-      <div class="form-row">
+      
         <!-- Quantity and Discount Fields -->
         <div class="form-group">
           <label for="quantity">Quantity:</label>
-          <input type="number" id="quantity" name="quantity" ngModel required />
+          <input type="number" id="saleQuantity" name="saleQuantity" [(ngModel)]="editingItemCopy.saleQuantity" required />
         </div>
   
         <div class="form-group">
           <label for="discount">Discount:</label>
-          <input type="number" id="discount" name="discount" ngModel required />
+          <input type="number" id="discount" name="discount" [(ngModel)]="editingItemCopy.discount" required />
         </div>
-      </div>
-      <button type="submit">Save</button>
-      <button type="button" (click)="cancelAddItem()">Cancel</button>
+      
+      <button type="submit">Update</button>
+      <button type="button" (click)="cancelEditItem()">Cancel</button>
     </form>
+    
   </div>
-</div>
+  <div class="sale">
+    <div class="receipt-total">
+      <div id="sub-total"><strong>Subtotal:</strong> {{ calculateSubtotal() | currency:'INR' }}</div>
+        <div id="tax"><strong>Tax ({{ taxRate * 100 }}%):</strong> {{ calculateTax() | currency:'INR' }}</div>
+        <div id="total"><strong>Total:</strong> {{ calculateTotalIncludingTax() | currency:'INR' }}</div>
+       
+    </div>
+    <div class="customer-section">
+      <label for="customerName">Customer Name:</label>
+      <input type="text" id="customerName" [(ngModel)]="customerName" />
+      
+    </div>
+    <div class="complete-sale-button-container">
+      <button class="complete-sale-button" (click)="generateReceipt()">Complete Sale</button>
+    </div>
+  </div>
+  
+</div> 
+  
+ 
+

@@ -12,6 +12,8 @@ body {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  margin-left: 2%;
+  
 }
 
 .search-bar input {
@@ -26,18 +28,23 @@ body {
 }
 
 table {
-  width: 70%; /* Set the table width to 60% */
+  width: 75%; /* Set the table width to 60% */
   border-collapse: collapse;
   margin-bottom: 20px; /* Add some margin at the bottom */
+  border: 1px solid black;
   
 }
 
 table th,
 table td {
-  border: 1px solid #eee; /* Lightest border color */
+  border-bottom: 1px solid black; /* Lightest border color */
+  
   padding: 10px;
   text-align: center;
   
+}
+table td:nth-child(even) {
+  background-color: #f2f2f2; /* Light grey color for even rows */
 }
 table th:nth-child(7), /* Select the 7th column (Action column) */
 table td:nth-child(7) {
@@ -61,18 +68,26 @@ table td button {
 
 /* Style the form container */
 .add-item-form {
-  width: 40%;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
+  width: 100%;
+  height: 5cm;
+  background-color: burlywood;
+  border: 1px solid #cccccc;
   padding: 20px;
-  margin-top: 10px;
+  margin-top: 0px;
+  margin: 10px auto;
   border-radius: 5px;
+  margin-top: -1%;
+  position: static;
 }
 
 /* Style form labels */
 .add-item-form label {
   display: block;
   margin-bottom: 5px;
+  text-align: center;
+  margin: 0 auto; /* Center align the inputs */
+  display: block;
+  margin-right: 10%;
 }
 
 /* Style form inputs */
@@ -80,26 +95,49 @@ table td button {
 .add-item-form input[type="number"] {
   width: 80%;
   padding: 10px;
-  margin-bottom: 10px;
+  
+  margin-top: 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
+.add-item-form input[type="number"]#discount {
+  width: 12%;
+   margin-left: 40%;/* Adjust the width as needed */
+}
+.add-item-form input[type="text"],
+.add-item-form input[type="number"]#discount{
+  margin-top: 5px;
+}
 
 /* Style form buttons */
-.add-item-form button[type="submit"],
-.add-item-form button[type="button"] {
+.button-container {
+  display: flex; /* Make the container a flex container */
+  margin-left: 75%; /* Distribute the buttons horizontally */
+  margin-top: -35px;
+
+   /* Add some vertical spacing */
+}
+
+/* Style form buttons */
+.button-container button {
   padding: 10px 20px;
-  margin-right: 10px;
-  background-color: #001f3f;
-  color: #fff;
   border: none;
   border-radius: 3px;
   cursor: pointer;
 }
 
-.add-item-form button[type="submit"]:hover,
-.add-item-form button[type="button"]:hover {
-  background-color: #001f3f;
+.button-container button[type="submit"] {
+  background-color: green;
+  color: white;
+}
+
+.button-container button[type="button"] {
+  background-color: red;
+  color: white;
+}
+
+.button-container button:hover {
+  filter: brightness(1.2); /* Add a hover effect to both buttons */
 }
 /*.button-row {
   display: flex;
@@ -107,12 +145,15 @@ table td button {
   margin-top: 20px;
 }*/
 .form-row{
+  margin-left: 25%;
   display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 
 .new-sale-button {
-  margin-right: 10px;
+  /*margin-right: -100px;
   background-color: green;
   color: white;
   padding: 10px 20px;
@@ -120,8 +161,16 @@ table td button {
   border-radius: 5px;
   cursor: pointer;
   margin-left: 60%; /* Adjust the left margin */
-  margin-right: auto; /* Push the button to the left */
-  margin-top: 30px;
+  /*margin-right: auto; /* Push the button to the left */
+  /*margin-top: 30px;*/
+  background-color: green;
+  color: white;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 75%;
+  
 }
 
 
@@ -167,61 +216,196 @@ table td button {
   background-color: darkred;
 }
 
-
-
-/* ================================================= */
-
-
-/*.receipt {
-  float: right;
-  width: 30%; /* Adjust the width of the receipt as needed 
-  margin-left: 20px; /* Add spacing between the container and the receipt 
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.receipt h2 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.receipt-item {
-  margin-bottom: 10px;
-  color: #555;
-}
-
-.receipt-total {
-  margin-top: 20px;
-  font-weight: bold;
-}
-
-.receipt-total div {
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.receipt button {
+/* Edit form styling */
+.edit-item-form {
   display: block;
-  margin-top: 10px;
-  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px; /* Adjust the width as needed */
+  background-color: #f7f7f7;
+  border-left: 1px solid #ccc; /* Add left border */
+  border-top: 1px solid #ccc; /* Add top border */
+  border-bottom: 1px solid #ccc; /* Add bottom border */
+  padding: 10px; /* Add padding to create space inside the form */
+  transition: left 0.3s ease-in-out;
+}
+
+.edit-item-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style the input fields */
+.edit-item-form input {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 10px; /* Add margin to separate form elements */
+}
+
+/* Style the buttons */
+.edit-item-form button {
+  padding: 5px 10px;
   background-color: #007bff;
   color: #fff;
   border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 10px; /* Add margin to separate form elements */
+}
+
+.edit-item-form button[type="submit"] {
+  background-color: #28a745; /* Style the "Update" button */
+}
+
+/* Create a close button to cancel editing */
+.edit-item-form .close-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.edit-item-form .close-button button {
+  padding: 5px 10px;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.receipt-total {
+  display: flex;
+  font-weight: bold;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1rem; /* Adjust the gap as needed */
+  margin-left: 60%;
+  margin-top: 5%;
+  
+
+  /* Styling for the 'total' section */
+  #total {
+    background-color: darkblue;
+    color: white;
+    font-size: 18px; /* Adjust the font size as needed */
+    padding: 5px; /* Add padding to make it visually distinct */
+    width: 30%;
+  }
+}
+.complete-sale-button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
+
+/* Style for the "Complete Sale" button on hover (optional) */
+.complete-sale-button:hover {
+  background-color: darkgreen;
+}
+.sale{
+  margin-bottom: 80%;
+  margin-right: -100px;
+}
+.customer-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: -7%; /* Add margin from the top */
+  padding-left: 20px; /* Add padding from the left */
+}
+
+.customer-section label {
+  font-weight: bold;
+}
+
+.complete-sale-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px; /* Add margin from the top */
+  padding-left: 20px; /* Add padding from the left */
+}
+
+.new-sale-button {
+  display: flex;
+  flex-direction: row;
+  background-color: green;
+  color: white;
+  padding: 5px 10px;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-left: 25px;
 }
 
-.receipt button:hover {
-  background-color: #0056b3;
+.new-sale-button:hover {
+  background-color: darkgreen;
+}
+.New-sale-search {
+  display: flex;
+  flex-direction: row;
+  
+  align-items: center;
+  margin-bottom: 20px; /* Add margin to the bottom */
 }
 
-/* Add a subtle border to the receipt items 
-.receipt-item div {
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
-  margin-bottom: 5px;
-}*/
+.New-sale-search .search-bar {
+  display: flex;
+  align-items: center;
+  margin-left: -200px;
+
+}
+.New-sale-search .search-bar input {
+  padding: 5px;
+  width: 200px;
+  margin-left: -200px;
+  border-radius: 2px;
+}
+.New-sale-search .search-bar .search{
+   margin-left: 10px;
+   width: 70px;
+   text-align: center;
+}
+.New-sale-search .search-bar .reset{
+  margin-left: -10px;
+}
+.receipt {
+  float: right; /* Move it to the right side */
+  border: 2px solid #f28ab2; /* Add a border with a light pink color */
+  background-color: #ffe0f0; /* Set a light pink background color */
+  padding: 10px; /* Add some padding to the receipt section */
+  border-radius: 10px; /* Add rounded corners */
+  margin-right: 20px; /* Add some spacing to separate it from the table */
+  margin-top: 5%;
+  position: relative;
+}
+
+/* Style for individual receipt items */
+.receipt-item {
+  border-bottom: 1px dashed #f28ab2; /* Dotted line between items */
+  padding-bottom: 10px; /* Add spacing between items */
+}
+
+/* Style for the receipt totals */
+.generate-receipt-total {
+  border: 2px solid #f28ab2;
+  background-color: #ffe0f0;
+  padding: 10px;
+  border-radius: 10px;
+  margin-left: 10px; /* Add spacing between the table and receipt */
+  min-width: 300px; 
+  margin-top: 20px; /* Add space above the totals */
+  font-weight: bold; /* Make totals bold */
+}
+
+
+
+

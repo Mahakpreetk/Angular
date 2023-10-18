@@ -13,6 +13,7 @@ import { NewService } from './services/new.service';
 import { EditModalComponent } from './edit-modal/edit-modal.component';
 import { SaleService } from './sale.service';
 import { SaleUpdateService } from './sale-update.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -20,9 +21,10 @@ import { SaleUpdateService } from './sale-update.service';
     MainComponent,
     NavComponent,
     SidebarComponent,
-    EditModalComponent // Include NavComponent in the declarations
+    EditModalComponent,
+     // Include NavComponent in the declarations
   ],
-  imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule,ToastrModule],
   providers: [NewService,SaleService,SaleUpdateService],
   bootstrap: [AppComponent],
 })

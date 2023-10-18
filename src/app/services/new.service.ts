@@ -32,7 +32,11 @@ export class NewService {
   deleteSale(saleId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${saleId}`);
   }
+  searchSales(query: string): Observable<any> {
+    const url = `${this.apiUrl}/search?query=${query}`;
+    return this.http.get(url);
+  }
   //addSale(item: any): Observable<any> {
-    //return this.http.post<any>(`${this.apiUrl}/AddSale`, item);
+   // return this.http.post<any>(`${this.apiUrl}/AddSale`, item);
   //}
 }
